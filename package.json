@@ -6,8 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "api": "npx json-server --watch data.json",
-    "environment": "npm run serve && npm run api"
+    "api": "npx json-server --watch data.json"
   },
   "dependencies": {
     "axios": "^0.27.2",
