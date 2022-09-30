@@ -3,6 +3,9 @@ info:
   title: Interview Task API
   description: Sample api for the interview task
   version: 0.0.1
+  contact:
+    name: 'Michał Piotrowski'
+    email: 'michal.piotrowski@ingenious.build'
 servers:
   - url: http://localhost:3000
 paths:
