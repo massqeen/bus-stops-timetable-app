@@ -16,5 +16,28 @@ Your have to implement simple board for bus stops. Directory `docs` contains `op
 `3000` - for the API server
 
 ## How to start environment
-1. `npm run api` - run the API
-2. `npm run serve` - for the Vue application
+1. `npm install` - install dependencies
+2. `npm run api` - run the API
+3. `npm run serve` - for the Vue application
+
+## User stories
+1. As a user I can open the url `http://localhost:8080` and see entry page with listed lines (figma: TODO)
+   1. User can see title "Stops Board"
+   2. User can see navigation with links "Lines" and "Stops" ("Lines" is active link)
+   3. User can see listed "lines". The "lines" should be sorted in the ascending order
+   4. User can see placeholder "Please select a line"
+   5. User can click at line
+      1. Placeholder disappear and user can see listed stops. Stops should be sorted ascending by field `order` from the api (figma: TODO)
+      2. Use can see placeholder "Please select a stop"
+   6. User can click at stop when line is selected
+      1. Placeholder about selecting the stop disappear
+      2. User can see listed hours for the selected stop sorted (figma: TODO) 
+
+2. As a user I can open the url `http://localhost:8080/stops` and see "stops" page with listed stops (figma: TODO)
+   1. User can see title "Stops board"
+   2. User can see navigation with links "Lines" and "Stops" ("Stops" is active link)
+   3. User can see the search bar
+   4. User can see listed "stops" sorted in the descending order
+   5. User can filter list by the search bar
+      1. The "stops" list should be filtered after user input
+      2. If search bar is empty all stops should be visible
