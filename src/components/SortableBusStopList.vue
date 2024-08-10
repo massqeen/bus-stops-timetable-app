@@ -28,7 +28,7 @@ const handleSelectStop = (stop: BusStop) => {
     </button>
   </div>
   <ul class="stop-list no-bullets">
-      <BusStopItem v-for="stop in stops" :key="stop.order" :stop="stop" @click="handleSelectStop(stop)"/>
+      <BusStopItem v-for="stop in stops" :key="stop.stop" :stop="stop" @click="handleSelectStop(stop)"/>
   </ul>
 </template>
 
