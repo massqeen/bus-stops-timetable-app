@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, ref, watch } from 'vue'
-import SortIcon from '@/components/icons/SortIcon.vue'
 import { BusStop } from '@/store'
-import BusStopList from "@/components/BusStopList.vue";
+import SortableBusStopList from "@/components/SortableBusStopList.vue";
 
 const props = defineProps<{ stops: BusStop[], selectedLineNumber: number }>()
 const emit = defineEmits<{
@@ -21,7 +20,7 @@ const sortStopsByOrder = () => {
   isAscending.value = !isAscending.value
 }
 
-const selectStop = (stop: BusStop) => {
+const handleSelectStop = (stop: BusStop) => {
   emit('stopSelected', stop)
 }
 
@@ -33,13 +32,12 @@ watch(() => props.stops, (newStops) => {
 <template>
   <div class="line-stops">
     <h2 class="title">Bus Line: {{ props.selectedLineNumber }}</h2>
-    <div class="sorting-wrapper">
-      <p class="sorting">Bus Stops</p>
-      <button class="sorting-button" @click="sortStopsByOrder">
-        <SortIcon :isSortedAsc="isAscending" />
-      </button>
-    </div>
-    <BusStopList :is-clickable="true" :stops="sortedBusStops" @stopSelected="selectStop" />
+    <SortableBusStopList :is-selectable="true"
+                 :stops="sortedBusStops"
+                 :is-ascending="isAscending"
+                 @stop-selected="handleSelectStop"
+                 @sort-stops="sortStopsByOrder"
+    />
   </div>
 </template>
 
@@ -65,26 +63,6 @@ watch(() => props.stops, (newStops) => {
     padding: 0 2.4rem;
     @include font(1.71, $font-size-sm, 600);
     color: $text-color;
-  }
-
-  .sorting-wrapper {
-    display: flex;
-    align-items: center;
-    padding: 2.4rem;
-    border-bottom: 1px solid $rectangle-border-dark;
-  }
-
-  .sorting {
-    @include font(1.71, $font-size-sm-1, 600);
-    color: $tab-text-color;
-  }
-
-  .sorting-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    width: 16px;
-    height: 16px;
   }
 }
 </style>
