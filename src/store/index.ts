@@ -2,12 +2,12 @@ import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import axios from 'axios'
 import { InjectionKey } from 'vue'
 
-interface BusLine {
+export interface BusLine {
   id: number
   name: string
 }
 
-interface BusStop {
+export interface BusStop {
   id: number
   name: string
   lineId: number

@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import BusLines from '@/views/BusLines.vue'
-import Stops from '@/views/Stops.vue'
+import BusStops from '@/views/BusStops.vue'
 
 const routes: Array<RouteRecordRaw> = [
   { path: '/', component: BusLines },
-  { path: '/stops', component: Stops },
+  { path: '/stops', component: BusStops },
 ];
 
 const router = createRouter({
