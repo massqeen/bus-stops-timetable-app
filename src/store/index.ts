@@ -1,4 +1,4 @@
-import { createStore, Store } from 'vuex'
+import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import axios from 'axios'
 import { InjectionKey } from 'vue'
 
@@ -45,8 +45,8 @@ const store = createStore<State>({
   },
 })
 
-export function useStore() {
-  return { store, key }
+export function useStore () {
+  return baseUseStore(key)
 }
 
 export default store
