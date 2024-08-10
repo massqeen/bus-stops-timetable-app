@@ -11,7 +11,7 @@ const selectStop = () => {
 </script>
 
 <template>
-  <div @click="selectStop" class="bus-stop-item">{{ stop.stop }}</div>
+  <li @click="selectStop" class="bus-stop-item">{{ stop.stop }}</li>
 </template>
 
 <style scoped lang="scss">

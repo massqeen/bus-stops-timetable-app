@@ -32,9 +32,9 @@ watch(() => props.stops, (newStops) => {
         <SortIcon :isSortedAsc="isAscending" />
       </button>
     </div>
-    <div class="stop-list">
+    <ul class="stop-list no-bullets">
       <BusStopItem v-for="stop in sortedBusStops" :key="stop.order" :stop="stop" />
-    </div>
+    </ul>
   </div>
 </template>
 
