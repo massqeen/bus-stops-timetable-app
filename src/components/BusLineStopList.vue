@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, ref, watch } from 'vue'
-import BusStopItem from '@/components/BusStopItem.vue'
 import SortIcon from '@/components/icons/SortIcon.vue'
 import { BusStop } from '@/store'
+import BusStopList from "@/components/BusStopList.vue";
 
 const props = defineProps<{ stops: BusStop[], selectedLineNumber: number }>()
-const emit = defineEmits(['stopSelected'])
+const emit = defineEmits<{
+  (e: 'stopSelected', stop: BusStop): void
+}>()
 
 const sortedBusStops = ref([...props.stops])
 const isAscending = ref(true)
@@ -37,9 +39,7 @@ watch(() => props.stops, (newStops) => {
         <SortIcon :isSortedAsc="isAscending" />
       </button>
     </div>
-    <ul class="stop-list no-bullets">
-      <BusStopItem v-for="stop in sortedBusStops" :key="stop.order" :stop="stop" @click="selectStop(stop)"/>
-    </ul>
+    <BusStopList :is-clickable="true" :stops="sortedBusStops" @stopSelected="selectStop" />
   </div>
 </template>
 
@@ -77,11 +77,6 @@ watch(() => props.stops, (newStops) => {
   .sorting {
     @include font(1.71, $font-size-sm-1, 600);
     color: $tab-text-color;
-  }
-
-  .stop-list {
-    display: flex;
-    flex-direction: column;
   }
 
   .sorting-button {
