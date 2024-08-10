@@ -24,7 +24,7 @@ watch(()=>props.times, () => {
     <h2 class="title">Bus Stop: {{ props.selectedStopName }}</h2>
     <h3 class="list-title">Time</h3>
     <ul class="time-list no-bullets">
-      <TimeItem v-for="time in times" :key="time" :time="time"/>
+      <TimeItem v-for="(time, index) in times" :key="index" :time="time"/>
     </ul>
   </div>
 </template>
