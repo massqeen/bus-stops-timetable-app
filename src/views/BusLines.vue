@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useStore, BusLine } from '@/store'
+import { ref, onMounted, defineEmits } from 'vue'
+import { useStore } from '@/store'
 import BusLineItem from '@/components/BusLineItem.vue'
+import { BusLine } from '@/store'
 
+const emit = defineEmits(['lineSelected'])
 const store = useStore()
 const busLines = ref<BusLine[]>([])
 
@@ -12,8 +14,7 @@ onMounted(async () => {
 })
 
 const selectLine = (line: BusLine) => {
-  // handle line selection
-  console.log('line', line)
+  emit('lineSelected', line)
 }
 </script>
 
@@ -37,7 +38,6 @@ const selectLine = (line: BusLine) => {
   padding: 2.4rem;
   border-radius: 4px;
   background-color: $primary-white;
-
 
   .line-selection {
     .title {
