@@ -3,7 +3,8 @@ import BusLines from '@/views/BusLines.vue'
 import BusStops from '@/views/BusStops.vue'
 
 const routes: Array<RouteRecordRaw> = [
-  { path: '/', component: BusLines },
+  { path: '/', redirect: '/lines' },
+  { path: '/lines', component: BusLines },
   { path: '/stops', component: BusStops },
 ];
 
