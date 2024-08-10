@@ -4,13 +4,14 @@ import { InjectionKey } from 'vue'
 
 export interface BusLine {
   id: number
-  name: string
+  order: number
 }
 
 export interface BusStop {
-  id: number
-  name: string
-  lineId: number
+  line: number
+  stop: string
+  order: number
+  time: string
 }
 
 export interface State {
@@ -18,9 +19,9 @@ export interface State {
   busStops: BusStop[]
 }
 
-const key: InjectionKey<Store<State>> = Symbol()
+export const key: InjectionKey<Store<State>> = Symbol()
 
-const store = createStore<State>({
+export const store = createStore<State>({
   state: {
     busLines: [],
     busStops: [],
@@ -34,12 +35,20 @@ const store = createStore<State>({
     },
   },
   actions: {
-    async fetchBusLines({ commit }) {
-      const response = await axios.get('http://localhost:3000/busLines')
-      commit('setBusLines', response.data)
+    async fetchBusLines({ commit, state }) {
+      if (state.busStops.length === 0) {
+        await this.dispatch('fetchBusStops')
+      }
+      const busLines = state.busStops.reduce((acc: BusLine[], stop) => {
+        if (!acc.find(line => line.id === stop.line)) {
+          acc.push({ id: stop.line, order: stop.order })
+        }
+        return acc
+      }, [])
+      commit('setBusLines', busLines.sort((a, b) => a.id - b.id))
     },
-    async fetchBusStops({ commit }, lineId: number) {
-      const response = await axios.get(`http://localhost:3000/busStops?lineId=${lineId}`)
+    async fetchBusStops({ commit }) {
+      const response = await axios.get('http://localhost:3000/stops')
       commit('setBusStops', response.data)
     },
   },
@@ -48,5 +57,3 @@ const store = createStore<State>({
 export function useStore () {
   return baseUseStore(key)
 }
-
-export default store
