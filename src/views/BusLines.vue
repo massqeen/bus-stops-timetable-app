@@ -2,16 +2,17 @@
 import { ref, onMounted } from 'vue'
 import { useStore } from '@/store'
 import BusLineItem from '@/components/BusLineItem.vue'
+import { BusLine } from '@/store'
 
 const store = useStore()
-const busLines = ref([])
+const busLines = ref<BusLine[]>([])
 
 onMounted(async () => {
   await store.dispatch('fetchBusLines')
   busLines.value = store.state.busLines
 })
 
-const selectLine = (line: unknown) => {
+const selectLine = (line: BusLine) => {
   // handle line selection
   console.log('line', line)
 }
@@ -19,8 +20,8 @@ const selectLine = (line: unknown) => {
 
 <template>
   <div class="bus-lines">
-    <h1>Timetable</h1>
-    <nav>
+    <h1 class="title">Timetable</h1>
+    <nav class="nav">
       <router-link to="/" class="nav-link">Bus Lines</router-link>
       <router-link to="/stops" class="nav-link">Stops</router-link>
     </nav>
@@ -39,12 +40,12 @@ const selectLine = (line: unknown) => {
 .bus-lines {
   padding: $padding;
 
-  h1 {
+  .title {
     font-size: $font-size-lg;
     margin-bottom: $padding;
   }
 
-  nav {
+  .nav {
     margin-bottom: $padding;
 
     .nav-link {

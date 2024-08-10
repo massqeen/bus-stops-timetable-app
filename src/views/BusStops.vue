@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useStore } from '@/store'
+import { useStore, BusStop } from '@/store'
 import BusStopItem from '@/components/BusStopItem.vue'
-import { BusStop } from '@/store'
 
 const store = useStore()
 const busStops = ref<BusStop[]>([])
@@ -20,9 +19,9 @@ const selectStop = (stop: BusStop) => {
 </script>
 
 <template>
-  <div class="stops">
-    <h1>Timetable</h1>
-    <nav>
+  <div class="bus-stops">
+    <h1 class="title">Timetable</h1>
+    <nav class="nav">
       <router-link to="/" class="nav-link">Bus Lines</router-link>
       <router-link to="/stops" class="nav-link">Stops</router-link>
     </nav>
@@ -38,15 +37,15 @@ const selectStop = (stop: BusStop) => {
 <style scoped lang="scss">
 @import '@/styles/variables';
 
-.stops {
+.bus-stops {
   padding: $padding;
 
-  h1 {
+  .title {
     font-size: $font-size-lg;
     margin-bottom: $padding;
   }
 
-  nav {
+  .nav {
     margin-bottom: $padding;
 
     .nav-link {

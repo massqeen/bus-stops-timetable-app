@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits } from 'vue'
+import { BusStop } from '@/store'
 
-const props = defineProps({
-  stop: Object,
-});
-
-const emits = defineEmits(['stopSelected']);
+const props = defineProps<{ stop: BusStop }>()
+const emits = defineEmits(['stopSelected'])
 
 const selectStop = () => {
-  emits('stopSelected', props.stop);
-};
+  emits('stopSelected', props.stop)
+}
 </script>
 
 <template>
