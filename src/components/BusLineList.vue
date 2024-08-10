@@ -4,7 +4,9 @@ import { useStore } from '@/store'
 import BusLineItem from '@/components/BusLineItem.vue'
 import { BusLine } from '@/store'
 
-const emit = defineEmits(['lineSelected'])
+const emit = defineEmits<{
+  (e: 'lineSelected', line: BusLine): void
+}>()
 const store = useStore()
 const busLines = ref<BusLine[]>([])
 const selectedLine = ref<BusLine | null>(null)

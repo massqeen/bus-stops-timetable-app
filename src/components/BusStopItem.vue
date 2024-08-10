@@ -3,10 +3,13 @@ import { defineProps, defineEmits } from 'vue'
 import { BusStop } from '@/store'
 
 const props = defineProps<{ stop: BusStop }>()
-const emits = defineEmits(['stopSelected'])
+const emit = defineEmits<{
+  (e: 'stopSelected', stop: BusStop): void
+}>()
+
 
 const selectStop = () => {
-  emits('stopSelected', props.stop)
+  emit('stopSelected', props.stop)
 }
 </script>
 

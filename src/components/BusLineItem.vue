@@ -3,10 +3,12 @@ import { defineProps, defineEmits } from 'vue'
 import { BusLine } from '@/store'
 
 const props = defineProps<{ line: BusLine, isActive: boolean }>()
-const emits = defineEmits(['lineSelected'])
+const emit = defineEmits<{
+  (e: 'lineSelected', line: BusLine): void
+}>()
 
 const selectLine = () => {
-  emits('lineSelected', props.line)
+  emit('lineSelected', props.line)
 }
 </script>
 
