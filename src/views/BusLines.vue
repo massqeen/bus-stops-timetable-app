@@ -7,14 +7,16 @@ import { BusLine } from '@/store'
 const emit = defineEmits(['lineSelected'])
 const store = useStore()
 const busLines = ref<BusLine[]>([])
+const selectedLine = ref<BusLine | null>(null)
 
 onMounted(async () => {
   await store.dispatch('fetchBusLines')
   busLines.value = store.state.busLines
 })
 
-const selectLine = (line: BusLine) => {
+const handleSelectLine = (line: BusLine) => {
   emit('lineSelected', line)
+  selectedLine.value = line
 }
 </script>
 
@@ -23,7 +25,12 @@ const selectLine = (line: BusLine) => {
     <div class="line-selection">
       <h2 class="title">Select Bus Line</h2>
       <div class="lines-list">
-        <BusLineItem v-for="line in busLines" :key="line.id" :line="line" @lineSelected="selectLine" />
+        <BusLineItem v-for="line in busLines"
+                     :key="line.id"
+                     :line="line"
+                     :isActive="line.id === selectedLine?.id"
+                     @lineSelected="handleSelectLine"
+        />
       </div>
     </div>
   </div>

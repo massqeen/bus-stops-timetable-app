@@ -2,7 +2,7 @@
 import { defineProps, defineEmits } from 'vue'
 import { BusLine } from '@/store'
 
-const props = defineProps<{ line: BusLine }>()
+const props = defineProps<{ line: BusLine, isActive: boolean }>()
 const emits = defineEmits(['lineSelected'])
 
 const selectLine = () => {
@@ -11,7 +11,7 @@ const selectLine = () => {
 </script>
 
 <template>
-  <div @click="selectLine" class="bus-line-item">{{ line.id }}</div>
+  <div @click="selectLine" class="bus-line-item" :class="isActive? 'active' : '' ">{{ line.id }}</div>
 </template>
 
 <style scoped lang="scss">
@@ -26,6 +26,10 @@ const selectLine = () => {
   transition: background-color 0.3s;
   @include font(1.33, $font-size-sm-1, 500);
   color: $primary-white;
+
+  &.active {
+    background-color: $primary-color-accent-2;
+  }
 
   &:hover {
     background-color: $primary-color-accent;
