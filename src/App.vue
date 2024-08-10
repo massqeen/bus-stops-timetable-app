@@ -3,15 +3,27 @@ import { ref, watch } from 'vue'
 import { useStore } from '@/store'
 import DetailsPlaceholder from '@/components/DetailsPlaceholder.vue'
 import BusLineStopList from '@/components/BusLineStopList.vue'
+import TimeList from '@/components/TimeList.vue'
 import { BusLine,BusStop } from '@/store'
 import '@/styles/main.scss'
 
 const store = useStore()
 const selectedLine = ref<BusLine | null>(null)
+const selectedStop = ref<BusStop | null>(null)
+const timesForSelectedStop = ref<string[]>([])
 const busStopsForSelectedLine = ref<BusStop[]>([])
 
 const handleLineSelected = (line: BusLine) => {
   selectedLine.value = line
+  selectedStop.value = null
+}
+
+const handleStopSelected = (stop: BusStop) => {
+  selectedStop.value = stop
+  timesForSelectedStop.value = store.state.busStops
+      .filter(s => s.line === selectedLine.value?.id && s.stop === stop.stop)
+      .map(s => s.time)
+      .sort((a, b) => a.localeCompare(b))
 }
 
 watch(selectedLine, (newLine) => {
@@ -39,10 +51,11 @@ watch(selectedLine, (newLine) => {
       </nav>
     </header>
     <main class="main">
-      <router-view @lineSelected="handleLineSelected" />
+      <router-view @lineSelected="handleLineSelected"/>
       <DetailsPlaceholder v-if="!selectedLine">Please select the bus line first</DetailsPlaceholder>
-      <BusLineStopList v-else :stops="busStopsForSelectedLine" :selected-line-number="selectedLine.id" />
-      <DetailsPlaceholder>Please select the bus stop first</DetailsPlaceholder>
+      <BusLineStopList v-else :stops="busStopsForSelectedLine" :selected-line-number="selectedLine.id" @stopSelected="handleStopSelected"/>
+      <DetailsPlaceholder v-if="!selectedStop">Please select the bus stop first</DetailsPlaceholder>
+      <TimeList v-else :times="timesForSelectedStop" :selected-stop-name="selectedStop.stop"/>
     </main>
   </div>
 </template>
