@@ -11,7 +11,7 @@ const selectLine = () => {
 </script>
 
 <template>
-  <div @click="selectLine" class="bus-line-item" :class="isActive? 'active' : '' ">{{ line.id }}</div>
+  <li @click="selectLine" class="bus-line-item" :class="isActive? 'active' : '' ">{{ line.id }}</li>
 </template>
 
 <style scoped lang="scss">

@@ -1,56 +1,13 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { useStore } from '@/store'
-import DetailsPlaceholder from '@/components/DetailsPlaceholder.vue'
-import BusLineStopList from '@/components/BusLineStopList.vue'
-import TimeList from '@/components/TimeList.vue'
-import { BusLine,BusStop } from '@/store'
-
-const store = useStore()
-const selectedLine = ref<BusLine | null>(null)
-const selectedStop = ref<BusStop | null>(null)
-const timesForSelectedStop = ref<string[]>([])
-const busStopsForSelectedLine = ref<BusStop[]>([])
-
-const handleLineSelected = (line: BusLine) => {
-  selectedLine.value = line
-  selectedStop.value = null
-}
-
-const handleStopSelected = (stop: BusStop) => {
-  selectedStop.value = stop
-  timesForSelectedStop.value = store.state.busStops
-      .filter(s => s.line === selectedLine.value?.id && s.stop === stop.stop)
-      .map(s => s.time)
-      .sort((a, b) => a.localeCompare(b))
-}
-
-watch(selectedLine, (newLine) => {
-  if (newLine) {
-    const uniqueStops = new Map()
-    store.state.busStops.forEach(stop => {
-      if (stop.line === newLine.id && !uniqueStops.has(stop.stop)) {
-        uniqueStops.set(stop.stop, stop)
-      }
-    })
-    busStopsForSelectedLine.value = Array.from(uniqueStops.values())
-  } else {
-    busStopsForSelectedLine.value = []
-  }
-}, { immediate: true })
 </script>
 
 <template>
   <main class="main">
-    <router-view @lineSelected="handleLineSelected"/>
-    <DetailsPlaceholder v-if="!selectedLine">Please select the bus line first</DetailsPlaceholder>
-    <BusLineStopList v-else :stops="busStopsForSelectedLine" :selected-line-number="selectedLine.id" @stopSelected="handleStopSelected"/>
-    <DetailsPlaceholder v-if="!selectedStop">Please select the bus stop first</DetailsPlaceholder>
-    <TimeList v-else :times="timesForSelectedStop" :selected-stop-name="selectedStop.stop"/>
+    <router-view />
   </main>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '@/styles/variables';
 @import '@/styles/mixins';
 
@@ -66,7 +23,7 @@ watch(selectedLine, (newLine) => {
   width: 100%;
 }
 
-.bus-lines {
+.bus-lines-list-wrapper {
   grid-area: busLines;
 }
 
