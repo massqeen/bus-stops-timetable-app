@@ -1,6 +1,32 @@
 <script setup lang="ts">
-import { RouterView, RouterLink } from 'vue-router'
-import DetailsPlaceholder from "@/components/DetailsPlaceholder.vue";
+import { ref, watch } from 'vue'
+import { useStore } from '@/store'
+import DetailsPlaceholder from '@/components/DetailsPlaceholder.vue'
+import BusLineStopList from '@/components/BusLineStopList.vue'
+import { BusLine,BusStop } from '@/store'
+import '@/styles/main.scss'
+
+const store = useStore()
+const selectedLine = ref<BusLine | null>(null)
+const busStopsForSelectedLine = ref<BusStop[]>([])
+
+const handleLineSelected = (line: BusLine) => {
+  selectedLine.value = line
+}
+
+watch(selectedLine, (newLine) => {
+  if (newLine) {
+    const uniqueStops = new Map()
+    store.state.busStops.forEach(stop => {
+      if (stop.line === newLine.id && !uniqueStops.has(stop.stop)) {
+        uniqueStops.set(stop.stop, stop)
+      }
+    })
+    busStopsForSelectedLine.value = Array.from(uniqueStops.values())
+  } else {
+    busStopsForSelectedLine.value = []
+  }
+}, { immediate: true })
 </script>
 
 <template>
@@ -13,8 +39,9 @@ import DetailsPlaceholder from "@/components/DetailsPlaceholder.vue";
       </nav>
     </header>
     <main class="main">
-      <router-view />
-      <DetailsPlaceholder/>
+      <router-view @lineSelected="handleLineSelected" />
+      <DetailsPlaceholder v-if="!selectedLine"/>
+      <BusLineStopList v-else :stops="busStopsForSelectedLine" :selected-line-number="selectedLine.id" />
       <DetailsPlaceholder/>
     </main>
   </div>
@@ -33,13 +60,13 @@ import DetailsPlaceholder from "@/components/DetailsPlaceholder.vue";
 
   .main {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
     grid-column-gap: 1.6rem;
     grid-row-gap: 1.6rem;
     align-items: self-start;
     grid-template-areas: 'busLines busLines'
-                        'placeholderStops placeholderLines';
+                         'stops     lines';
     width: 100%;
   }
 
@@ -47,16 +74,14 @@ import DetailsPlaceholder from "@/components/DetailsPlaceholder.vue";
     grid-area: busLines;
   }
 
-  .placeholder-stops {
-    grid-area: placeholderStops;
+  .placeholder-stops, .line-stops {
+    grid-area: stops;
   }
 
   .placeholder-lines {
-    grid-area: placeholderLines;
+    grid-area: lines;
   }
 }
-
-
 
 .header {
   width: 100%;
