@@ -11,7 +11,7 @@ const selectStop = () => {
 </script>
 
 <template>
-  <div @click="selectStop" class="bus-stop-item">{{ stop.name }}</div>
+  <div @click="selectStop" class="bus-stop-item">{{ stop.stop }}</div>
 </template>
 
 <style scoped lang="scss">
@@ -19,9 +19,6 @@ const selectStop = () => {
 
 .bus-stop-item {
   cursor: pointer;
-  padding: $padding;
-  border: 1px solid $primary-color;
-  margin-bottom: 1rem;
   transition: background-color 0.3s;
 
   &:hover {

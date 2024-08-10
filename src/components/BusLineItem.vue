@@ -11,18 +11,21 @@ const selectLine = () => {
 </script>
 
 <template>
-  <div @click="selectLine" class="bus-line-item">{{ line.name }}</div>
+  <div @click="selectLine" class="bus-line-item">{{ line.id }}</div>
 </template>
 
 <style scoped lang="scss">
 @import '@/styles/variables';
+@import '@/styles/mixins';
 
 .bus-line-item {
   cursor: pointer;
-  padding: $padding;
-  border: 1px solid $primary-color;
-  margin-bottom: 1rem;
+  padding: 0.8rem 1.6rem;
+  background-color: $primary-color;
+  border-radius: 4px;
   transition: background-color 0.3s;
+  @include font(1.33, $font-size-sm-1, 500);
+  color: $primary-white;
 
   &:hover {
     background-color: lighten($primary-color, 40%);

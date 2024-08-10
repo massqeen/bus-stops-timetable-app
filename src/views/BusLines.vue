@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import { useStore } from '@/store'
+import { useStore, BusLine } from '@/store'
 import BusLineItem from '@/components/BusLineItem.vue'
-import { BusLine } from '@/store'
 
 const store = useStore()
 const busLines = ref<BusLine[]>([])
@@ -20,48 +19,38 @@ const selectLine = (line: BusLine) => {
 
 <template>
   <div class="bus-lines">
-    <h1 class="title">Timetable</h1>
-    <nav class="nav">
-      <router-link to="/" class="nav-link">Bus Lines</router-link>
-      <router-link to="/stops" class="nav-link">Stops</router-link>
-    </nav>
-    <div v-if="busLines.length > 0">
-      <BusLineItem v-for="line in busLines" :key="line.id" :line="line" @lineSelected="selectLine" />
-    </div>
-    <div v-else class="placeholder">
-      Please select the bus line first
+    <div class="line-selection">
+      <h2 class="title">Select Bus Line</h2>
+      <div class="lines-list">
+        <BusLineItem v-for="line in busLines" :key="line.id" :line="line" @lineSelected="selectLine" />
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
 @import '@/styles/variables';
+@import '@/styles/mixins';
 
 .bus-lines {
-  padding: $padding;
+  width: 100%;
+  padding: 2.4rem;
+  border-radius: 4px;
+  background-color: $primary-white;
 
-  .title {
-    font-size: $font-size-lg;
-    margin-bottom: $padding;
-  }
 
-  .nav {
-    margin-bottom: $padding;
-
-    .nav-link {
-      margin-right: $margin-right;
-      text-decoration: none;
-      color: $primary-color;
-
-      &:hover {
-        text-decoration: underline;
-      }
+  .line-selection {
+    .title {
+      margin-bottom: 0.8rem;
+      color: $text-color;
+      @include font(1.71, $font-size-sm, 600);
     }
-  }
 
-  .placeholder {
-    font-size: $font-size-md;
-    color: $secondary-color;
+    .lines-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
   }
 }
 </style>
