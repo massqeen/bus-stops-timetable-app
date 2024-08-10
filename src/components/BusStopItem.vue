@@ -24,6 +24,7 @@ const selectStop = () => {
   transition: background-color 0.3s;
   @include font(1.33, $font-size-sm-1, 400);
   color: $tab-text-color;
+  user-select: none;
 
   &:not(:last-child) {
     border-bottom: 1px solid $rectangle-border-light;
