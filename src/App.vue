@@ -40,9 +40,9 @@ watch(selectedLine, (newLine) => {
     </header>
     <main class="main">
       <router-view @lineSelected="handleLineSelected" />
-      <DetailsPlaceholder v-if="!selectedLine"/>
+      <DetailsPlaceholder v-if="!selectedLine">Please select the bus line first</DetailsPlaceholder>
       <BusLineStopList v-else :stops="busStopsForSelectedLine" :selected-line-number="selectedLine.id" />
-      <DetailsPlaceholder/>
+      <DetailsPlaceholder>Please select the bus stop first</DetailsPlaceholder>
     </main>
   </div>
 </template>

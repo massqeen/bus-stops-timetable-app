@@ -2,7 +2,9 @@
 </script>
 
 <template>
-<div class="container">Please select the bus line first</div>
+  <div class="container">
+    <slot></slot>
+  </div>
 </template>
 
 <style scoped lang="scss">
