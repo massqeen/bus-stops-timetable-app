@@ -1,4 +1,20 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useStore } from '@/store'
+import BusLineItem from '@/components/BusLineItem.vue'
+
+const store = useStore()
+const busLines = ref([])
+
+onMounted(async () => {
+  await store.dispatch('fetchBusLines')
+  busLines.value = store.state.busLines
+})
+
+const selectLine = (line: unknown) => {
+  // handle line selection
+  console.log('line', line)
+}
 </script>
 
 <template>
@@ -8,7 +24,10 @@
       <router-link to="/" class="nav-link">Bus Lines</router-link>
       <router-link to="/stops" class="nav-link">Stops</router-link>
     </nav>
-    <div class="placeholder">
+    <div v-if="busLines.length > 0">
+      <BusLineItem v-for="line in busLines" :key="line.id" :line="line" @lineSelected="selectLine" />
+    </div>
+    <div v-else class="placeholder">
       Please select the bus line first
     </div>
   </div>
