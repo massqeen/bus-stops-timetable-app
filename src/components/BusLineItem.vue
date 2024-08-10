@@ -28,7 +28,7 @@ const selectLine = () => {
   color: $primary-white;
 
   &:hover {
-    background-color: lighten($primary-color, 40%);
+    background-color: $primary-color-accent;
   }
 }
 </style>
