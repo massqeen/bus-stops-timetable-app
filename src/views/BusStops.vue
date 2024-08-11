@@ -10,6 +10,8 @@ const sortedBusStops = ref([...busStops.value])
 const isAscending = ref(true)
 const searchQuery = ref<string>('')
 
+const isLoading = computed(() => store.state.isLoading)
+const error = computed(() => store.state.error)
 const filteredBusStops = computed(() => {
   if (!searchQuery.value) return sortedBusStops.value
   return sortedBusStops.value.filter(stop =>
@@ -52,7 +54,10 @@ onMounted(async () => {
     <div class="search-input-container">
       <SearchInput placeholder="Search..." @searchQuery="updateSearchQuery"/>
     </div>
-    <SortableBusStopList :is-selectable="false"
+    <div v-if="isLoading" class="loading-container">Loading...</div>
+    <div v-if="error" class="error-container">{{ error }}</div>
+    <SortableBusStopList v-if="!isLoading && !error"
+                         :is-selectable="false"
                          :stops="filteredBusStops"
                          :is-ascending="isAscending"
                          @sort-stops="sortStopsByName"
@@ -67,6 +72,11 @@ onMounted(async () => {
   background-color: $primary-white;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
+}
+
+.loading-container, .error-container {
+  padding: 2.4rem;
+  font-size: $font-size-lg;
 }
 
 .search-input-container {
