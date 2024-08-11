@@ -27,18 +27,16 @@ describe('TimeList.vue', () => {
     it('scrolls to the top when times change', async () => {
         const wrapper = shallowMount(TimeList, {
             props: { times, selectedStopName },
-            attachTo: document.body // Прикрепляем к реальному DOM
+            attachTo: document.body
         })
 
         const container = wrapper.find('.time-list-container').element as HTMLElement
-        container.scrollTop = 100 // Имитируем прокрутку
+        container.scrollTop = 100
 
         await wrapper.setProps({ times: ['14:00', '14:30'] })
 
-        // Убедитесь, что вызов обновлений завершен
         await wrapper.vm.$nextTick()
 
-        // Проверяем, что scrollTop был сброшен
         expect(container.scrollTop).toBe(0)
     })
 
@@ -55,7 +53,7 @@ describe('TimeList.vue', () => {
             props: { times, selectedStopName },
             global: {
                 stubs: {
-                    TimeItem: false  // Убираем заглушку для TimeItem
+                    TimeItem: false
                 }
             }
         })

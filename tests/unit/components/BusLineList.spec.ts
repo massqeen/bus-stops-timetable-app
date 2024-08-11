@@ -36,7 +36,7 @@ describe('BusLineList.vue', () => {
                     [key as symbol]: store
                 },
                 stubs: {
-                    BusLineItem: false // Отключаем заглушку для этого компонента
+                    BusLineItem: false
                 }
             }
         });
@@ -60,14 +60,12 @@ describe('BusLineList.vue', () => {
     it('emits lineSelected event when a line is selected', async () => {
         const busLineItems = wrapper.findAllComponents(BusLineItem);
 
-        // Проверка на эмиссию события lineSelected
         await busLineItems[0].vm.$emit('lineSelected', busLines[0]);
         expect(wrapper.emitted('lineSelected')).toBeTruthy();
         expect(wrapper.emitted('lineSelected')?.[0]).toEqual([busLines[0]]);
     });
 
     it('assigns selectedLine when a line is selected', async () => {
-        // Присвоение selectedLine должно происходить при выборе линии
         wrapper.vm.handleSelectLine(busLines[0]);
         await wrapper.vm.$nextTick();
         expect(wrapper.vm.selectedLine).toEqual(busLines[0]);

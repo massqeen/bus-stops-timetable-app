@@ -38,7 +38,6 @@ export const store = createStore<State>({
       state.busStops = stops
     },
     setLoading(state, isLoading: boolean) {
-      console.log(`Setting isLoading to ${isLoading}`); // Добавлено для отладки
       state.isLoading = isLoading
     },
     setError(state, error: string | null) {

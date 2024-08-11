@@ -27,7 +27,7 @@ describe('SearchInput.vue', () => {
         const input = wrapper.find('input')
         await input.setValue('test query')
 
-        // Ждем завершения debounce таймера
+        // Waiting for debounce timer
         vi.runAllTimers()
 
         expect(wrapper.emitted('searchQuery')).toBeTruthy()
@@ -42,10 +42,7 @@ describe('SearchInput.vue', () => {
         const input = wrapper.find('input')
         await input.trigger('focus')
 
-        // Проверяем, что контейнер получил класс при фокусе
         expect(wrapper.find('.search-container').classes()).toContain('focused')
 
-        // Можно также проверить изменение состояния на фокусе через вычисляемые свойства
-        // или другие изменения в компоненте, если это реализовано в коде.
     })
 })
