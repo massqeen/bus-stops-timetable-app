@@ -19,7 +19,7 @@ function debounce<T extends (...args: Parameters<T>) => ReturnType<T>>(fn: T, de
 }
 
 const emitDebouncedInput = debounce((query: string) => {
-  emit('searchQuery', query)
+  emit('searchQuery', query.trim())
 }, 500)
 
 watch(searchQuery, (newQuery) => {
@@ -74,6 +74,9 @@ const onInput = () => {
   border: none;
   outline: none;
   padding: 0;
+  font-family: $font-family;
+  @include font(1.14, $font-size-sm-1, 400);
+  color: $text-color;
 
   &::placeholder {
     font-family: $font-family;

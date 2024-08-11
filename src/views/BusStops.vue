@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted, watch, computed } from 'vue'
 import { useStore, BusStop } from '@/store'
 import SortableBusStopList from "@/components/SortableBusStopList.vue";
 import SearchInput from "@/components/SearchInput.vue";
@@ -8,6 +8,18 @@ const store = useStore()
 const busStops = ref<BusStop[]>([])
 const sortedBusStops = ref([...busStops.value])
 const isAscending = ref(true)
+const searchQuery = ref<string>('')
+
+const filteredBusStops = computed(() => {
+  if (!searchQuery.value) return sortedBusStops.value
+  return sortedBusStops.value.filter(stop =>
+      stop.stop.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+})
+
+const updateSearchQuery = (query: string) => {
+  searchQuery.value = query
+}
 
 const sortStopsByName = () => {
   if (isAscending.value) {
@@ -38,10 +50,10 @@ onMounted(async () => {
 <template>
   <div class="stops">
     <div class="search-input-container">
-      <SearchInput placeholder="Search..." />
+      <SearchInput placeholder="Search..." @searchQuery="updateSearchQuery"/>
     </div>
     <SortableBusStopList :is-selectable="false"
-                         :stops="sortedBusStops"
+                         :stops="filteredBusStops"
                          :is-ascending="isAscending"
                          @sort-stops="sortStopsByName"
     />
