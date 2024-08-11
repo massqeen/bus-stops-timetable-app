@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { Store } from 'vuex'
 
 // reset modules before mocking
 vi.resetModules()
@@ -12,7 +13,7 @@ const mockedAxios = axios as jest.Mocked<typeof axios>
 import { store as originalStore } from '@/store'
 
 describe('Vuex Store', () => {
-    let store: any
+    let store: Store<unknown>
 
     beforeEach(() => {
         // create new store instance before every test
