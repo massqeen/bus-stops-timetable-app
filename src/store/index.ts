@@ -45,9 +45,9 @@ export const store = createStore<State>({
     },
   },
   actions: {
-    async fetchBusLines({ commit, state }) {
+    async fetchBusLines({ commit, state, dispatch }) {
       if (state.busStops.length === 0) {
-        await this.dispatch('fetchBusStops')
+        await dispatch('fetchBusStops')
       }
       const busLines = state.busStops.reduce((acc: BusLine[], stop) => {
         if (!acc.find(line => line.id === stop.line)) {
