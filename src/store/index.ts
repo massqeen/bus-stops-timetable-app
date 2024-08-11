@@ -38,6 +38,7 @@ export const store = createStore<State>({
       state.busStops = stops
     },
     setLoading(state, isLoading: boolean) {
+      console.log(`Setting isLoading to ${isLoading}`); // Добавлено для отладки
       state.isLoading = isLoading
     },
     setError(state, error: string | null) {
@@ -49,16 +50,20 @@ export const store = createStore<State>({
       if (state.busStops.length === 0) {
         await dispatch('fetchBusStops')
       }
+
       const busLines = state.busStops.reduce((acc: BusLine[], stop) => {
         if (!acc.find(line => line.id === stop.line)) {
           acc.push({ id: stop.line, order: stop.order })
         }
         return acc
       }, [])
+
       commit('setBusLines', busLines.sort((a, b) => a.id - b.id))
     },
-    async fetchBusStops({ commit }) {
-      commit('setLoading', true)
+    async fetchBusStops({ commit }, { skipLoading = false } = {}) {
+      if (!skipLoading) {
+        commit('setLoading', true)
+      }
       commit('setError', null)
       try {
         const response = await axios.get('http://localhost:3000/stops')
@@ -66,12 +71,14 @@ export const store = createStore<State>({
       } catch (error) {
         commit('setError', 'Failed to load bus stops')
       } finally {
-        commit('setLoading', false)
+        if (!skipLoading) {
+          commit('setLoading', false)
+        }
       }
     },
   },
 })
 
-export function useStore () {
+export function useStore() {
   return baseUseStore(key)
 }
