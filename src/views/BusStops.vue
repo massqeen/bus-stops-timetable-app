@@ -69,6 +69,7 @@ onMounted(async () => {
 @import '@/styles/variables';
 
 .stops {
+  min-height: 83svh;
   background-color: $primary-white;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
