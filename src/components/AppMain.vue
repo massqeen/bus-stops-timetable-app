@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import { useRoute } from "vue-router";
+import { computed } from "vue";
+import { useStore } from "@/store";
+
+const store = useStore()
+
+const isLoading = computed(() => store.state.isLoading)
+const error = computed(() => store.state.error)
 
 const route = useRoute()
 </script>
 
 <template>
-  <main class="main" :class="route.path === '/lines' ? 'grid' : ''">
+  <main class="main" :class="route.path === '/lines' && !isLoading && !error ? 'grid' : ''">
     <router-view />
   </main>
 </template>

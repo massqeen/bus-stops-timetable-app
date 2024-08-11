@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useStore } from '@/store'
 import BusLineList from "@/components/BusLineList.vue";
 import BusLineStopList from '@/components/BusLineStopList.vue'
@@ -12,6 +12,9 @@ const selectedLine = ref<BusLine | null>(null)
 const selectedStop = ref<BusStop | null>(null)
 const timesForSelectedStop = ref<string[]>([])
 const busStopsForSelectedLine = ref<BusStop[]>([])
+
+const isLoading = computed(() => store.state.isLoading)
+const error = computed(() => store.state.error)
 
 const handleLineSelected = (line: BusLine) => {
   selectedLine.value = line
@@ -42,14 +45,22 @@ watch(selectedLine, (newLine) => {
 </script>
 
 <template>
-  <BusLineList @lineSelected="handleLineSelected"/>
-  <DetailsPlaceholder v-if="!selectedLine">Please select the bus line first</DetailsPlaceholder>
-  <BusLineStopList v-else :stops="busStopsForSelectedLine" :selected-line-number="selectedLine.id" @stopSelected="handleStopSelected"/>
-  <DetailsPlaceholder v-if="!selectedStop">Please select the bus stop first</DetailsPlaceholder>
-  <TimeList v-else :times="timesForSelectedStop" :selected-stop-name="selectedStop.stop"/>
+  <div v-if="isLoading" class="loading-container">Loading...</div>
+  <div v-if="error" class="error-container">Hello</div>
+  <div v-if="!isLoading && !error">
+    <BusLineList @lineSelected="handleLineSelected"/>
+    <DetailsPlaceholder v-if="!selectedLine">Please select the bus line first</DetailsPlaceholder>
+    <BusLineStopList v-else :stops="busStopsForSelectedLine" :selected-line-number="selectedLine.id" @stopSelected="handleStopSelected"/>
+    <DetailsPlaceholder v-if="!selectedStop">Please select the bus stop first</DetailsPlaceholder>
+    <TimeList v-else :times="timesForSelectedStop" :selected-stop-name="selectedStop.stop"/>
+  </div>
 </template>
 
 <style scoped lang="scss">
 @import '@/styles/variables';
-@import '@/styles/mixins';
+
+.loading-container, .error-container {
+  padding: 2.4rem;
+  font-size: $font-size-lg;
+}
 </style>
