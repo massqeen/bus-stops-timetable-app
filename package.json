@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "api": "npx json-server --watch data.json"
+    "api": "npx json-server --watch data.json",
+    "test": "vitest"
   },
   "dependencies": {
     "axios": "^0.27.2",
@@ -21,6 +22,8 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
+    "@vitejs/plugin-vue": "^5.1.2",
+    "@vitejs/plugin-vue-jsx": "^4.0.0",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
@@ -30,6 +33,7 @@
     "@vue/eslint-config-typescript": "^9.1.0",
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^8.0.3",
+    "jsdom": "^24.1.1",
     "sass": "^1.32.7",
     "sass-loader": "^12.0.0",
     "typescript": "~4.5.5"
