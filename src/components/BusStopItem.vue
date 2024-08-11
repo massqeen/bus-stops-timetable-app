@@ -2,19 +2,20 @@
 import { defineProps, defineEmits } from 'vue'
 import { BusStop } from '@/store'
 
-const props = defineProps<{ stop: BusStop }>()
+const props = defineProps<{ stop: BusStop, isSelectable: boolean }>()
 const emit = defineEmits<{
   (e: 'stopSelected', stop: BusStop): void
 }>()
 
 
 const selectStop = () => {
+  if(!props.isSelectable) return
   emit('stopSelected', props.stop)
 }
 </script>
 
 <template>
-  <li @click="selectStop" class="bus-stop-item">{{ stop.stop }}</li>
+  <li @click="selectStop" class="bus-stop-item" :class="{ selectable: props.isSelectable  }">{{ stop.stop }}</li>
 </template>
 
 <style scoped lang="scss">
@@ -23,18 +24,21 @@ const selectStop = () => {
 
 .bus-stop-item {
   padding: 2rem 2.4rem;
-  cursor: pointer;
   transition: background-color 0.3s;
   @include font(1.33, $font-size-sm-1, 400);
   color: $tab-text-color;
   user-select: none;
 
-  &:not(:last-child) {
-    border-bottom: 1px solid $rectangle-border-light;
+  &.selectable {
+    cursor: pointer;
+
+    &:hover {
+      background-color: $fill-light-grey;
+    }
   }
 
-  &:hover {
-    background-color: $fill-light-grey;
+  &:not(:last-child) {
+    border-bottom: 1px solid $rectangle-border-light;
   }
 }
 </style>
