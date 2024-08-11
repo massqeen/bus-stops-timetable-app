@@ -40,7 +40,7 @@ const onInput = () => {
         v-model="searchQuery"
         @input="onInput"
     />
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
           fill-rule="evenodd"
           clip-rule="evenodd"
@@ -67,6 +67,18 @@ const onInput = () => {
   background: $primary-white;
   border: 1px solid $rectangle-border-dark;
   border-radius: 4px;
+
+  .search-icon path {
+    fill: $secondary-color;
+  }
+
+  &:focus-within {
+    border-color: $primary-color;
+
+    .search-icon path {
+      fill: $primary-color;
+    }
+  }
 }
 
 .input {
