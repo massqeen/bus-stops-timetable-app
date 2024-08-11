@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, defineEmits } from 'vue'
-import { useStore } from '@/store'
+import { useStore, BusLine } from '@/store'
 import BusLineItem from '@/components/BusLineItem.vue'
-import { BusLine } from '@/store'
 
 const emit = defineEmits<{
   (e: 'lineSelected', line: BusLine): void
