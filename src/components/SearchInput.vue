@@ -9,6 +9,7 @@ const emit = defineEmits<{
   (e:'searchQuery', query: string): void,
 }>()
 const searchQuery = ref<string>('')
+const isFocused = ref(false)
 
 function debounce<T extends (...args: Parameters<T>) => ReturnType<T>>(fn: T, delay: number): (...args: Parameters<T>) => void {
   let timeoutId: ReturnType<typeof setTimeout>
@@ -26,19 +27,27 @@ watch(searchQuery, (newQuery) => {
   emitDebouncedInput(newQuery)
 })
 
-const onInput = () => {
+const handleInput = () => {
   emitDebouncedInput(searchQuery.value)
+}
+const handleFocus = () => {
+  isFocused.value = true
+}
+const handleBlur = () => {
+  isFocused.value = false
 }
 </script>
 
 <template>
-  <div class="search-container">
+  <div class="search-container" :class="{ focused: isFocused }">
     <input
         class="input"
         type="text"
         :placeholder="props.placeholder"
         v-model="searchQuery"
-        @input="onInput"
+        @input="handleInput"
+        @focus="handleFocus"
+        @blur="handleBlur"
     />
     <svg class="search-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -72,7 +81,7 @@ const onInput = () => {
     fill: $secondary-color;
   }
 
-  &:focus-within {
+  &.focused {
     border-color: $primary-color;
 
     .search-icon path {
