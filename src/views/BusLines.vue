@@ -47,7 +47,7 @@ watch(selectedLine, (newLine) => {
 <template>
   <div v-if="isLoading" class="loading-container">Loading...</div>
   <div v-if="error" class="error-container">Hello</div>
-  <div v-if="!isLoading && !error">
+  <div v-if="!isLoading && !error" class="grid">
     <BusLineList @lineSelected="handleLineSelected"/>
     <DetailsPlaceholder v-if="!selectedLine">Please select the bus line first</DetailsPlaceholder>
     <BusLineStopList v-else :stops="busStopsForSelectedLine" :selected-line-number="selectedLine.id" @stopSelected="handleStopSelected"/>
@@ -56,8 +56,32 @@ watch(selectedLine, (newLine) => {
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
 @import '@/styles/variables';
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-column-gap: 1.6rem;
+  grid-row-gap: 1.6rem;
+  align-items: self-start;
+  grid-template-areas: 'busLines busLines'
+                        'line-stops lines';
+}
+
+
+.bus-lines-list-wrapper {
+  grid-area: busLines;
+}
+
+.placeholder-stops, .line-stops {
+  grid-area: line-stops;
+}
+
+.placeholder-lines {
+  grid-area: lines;
+}
 
 .loading-container, .error-container {
   padding: 2.4rem;
