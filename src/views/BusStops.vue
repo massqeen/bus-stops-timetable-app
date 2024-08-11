@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue'
 import { useStore, BusStop } from '@/store'
 import SortableBusStopList from "@/components/SortableBusStopList.vue";
+import SearchInput from "@/components/SearchInput.vue";
 
 const store = useStore()
 const busStops = ref<BusStop[]>([])
@@ -36,6 +37,9 @@ onMounted(async () => {
 
 <template>
   <div class="stops">
+    <div class="search-input-container">
+      <SearchInput placeholder="Search..." />
+    </div>
     <SortableBusStopList :is-selectable="false"
                          :stops="sortedBusStops"
                          :is-ascending="isAscending"
@@ -51,5 +55,9 @@ onMounted(async () => {
   background-color: $primary-white;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
+}
+
+.search-input-container {
+  padding: 0.8rem;
 }
 </style>
