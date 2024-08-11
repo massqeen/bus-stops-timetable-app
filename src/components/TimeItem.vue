@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 
-const props = defineProps<{ time: string }>()
+defineProps<{ time: string }>()
 </script>
 
 <template>
