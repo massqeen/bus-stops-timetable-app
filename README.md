@@ -1,4 +1,36 @@
-# Bus stops interview task
+# Bus Stops - Timetable Application
+
+## Project Description
+
+This web application was developed as part of a test assignment to display bus lines and stops using **Vue 3**. The application allows users to view available bus lines, select specific stops, and retrieve departure times. It was implemented based on specific user stories and design requirements, with a focus on accurate design replication, optimized user interaction, and enhanced data accessibility through sorting and filtering functionality.
+
+## Key Technologies and Tools
+
+- **Vue 3**: Used as the main framework for building user interface components.
+- **Vue Router**: Handles navigation and page routing within the application.
+- **Vuex**: Manages global state and data across the application.
+- **TypeScript**: Ensures strong type safety, improves code readability, and reduces potential errors during development.
+- **Axios**: Used for making HTTP requests to interact with the API server.
+- **Bootstrap 5**: Provides styling and ensures responsive design.
+- **Vitest**: A tool for writing and running unit tests to ensure code quality.
+- **Json-server**: Simulates a backend server for API calls.
+
+## Demonstrated Skills
+
+This project showcases several key skills and practices:
+
+- **Vue 3 Development**: Building components and organizing code using modern Vue patterns.
+- **Vue Router and Vuex**: Implementing client-side routing and global state management for a seamless user experience.
+- **Interactive UI**: Implementing real-time sorting and filtering for bus stops and timetable data.
+- **TypeScript**: Enforcing type safety across the application to reduce errors and enhance maintainability.
+- **API Integration**: Handling asynchronous data fetching and displaying real-time information on bus lines and stops.
+- **Testing**: Writing unit tests to validate business logic and ensure components work as expected.
+- **UI/UX Design**: Accurately following Figma design guidelines to create an accessible and user-friendly interface.
+
+## Test Assignment Context
+
+This project was completed as part of a technical test assignment, showcasing my ability to build a functional and well-structured application while adhering to the provided requirements. It highlights my proficiency in using Vue 3, TypeScript, and related technologies to meet specified goals under test conditions.
+
 
 ## Required environment
 `npm 8.11` and `node 16.15`
@@ -24,38 +56,5 @@
 2. `npm run api` - run the API
 3. `npm run serve` - for the Vue application
 
-## Assignment
-1. You have to implement simple board for bus stops according to the User Stories and corresponding designs
-2. Directory `docs` contains `openapi` specification for the `api` response - feel free to play with that to check how api was implemented. 
-3. Realization should be as close to the design as possible 
-4. Usage of Typescript is required 
-5. Handling of loading and error states 
-6. Unit tests
-7. Avoid using any other libraries
-
-## User stories
-
-1. As a user I can open the url `http://localhost:8080` and see entry page with listed lines (https://www.figma.com/file/Dj4FdiwG7uYUqV8ml7xKSL/Interview-Task---Frontend-Dev?type=design&node-id=701-10332&mode=design&t=TTiUnvJpn1Nl7Rgh-4)
-   1. User can see title "Timetable"
-   2. User can see navigation with links "Bus Lines" and "Stops" ("Bus Lines" is active link)
-   3. User can see listed "Bus Lines". The "Bus Lines" should be sorted in the ascending order
-   4. User can see placeholder "Please select the bus line first"
-   5. User can click at the line
-      1. Placeholder for the "Bus Stops" disappears 
-      2. Placeholder "Please select the bus stop first" is displayed for the "Time" list
-      3. "Bus Stops" list is displayed (https://www.figma.com/file/Dj4FdiwG7uYUqV8ml7xKSL/Interview-Task---Frontend-Dev?type=design&node-id=701-27993&mode=design&t=TTiUnvJpn1Nl7Rgh-4)
-      4. "Bus Stops" should be sortable by clicking on the icon near the title (by field 'order')
-      5. By default, "Bus Stops" should be sorted in the ascending order
-   6. When line is selected, User can click at the stop
-      1. Placeholder for the "Time" list disappears
-      2. "Time" list is displayed (https://www.figma.com/file/Dj4FdiwG7uYUqV8ml7xKSL/Interview-Task---Frontend-Dev?type=design&node-id=701-36989&mode=design&t=TTiUnvJpn1Nl7Rgh-4)
-      3. "Time" list entries should be sorted in the ascending order
-
-2. As a user I can open the url `http://localhost:8080/stops` and see "stops" page with listed stops (https://www.figma.com/file/Dj4FdiwG7uYUqV8ml7xKSL/Interview-Task---Frontend-Dev?type=design&node-id=701-38103&mode=design&t=TTiUnvJpn1Nl7Rgh-4)
-   1. User can see title "Timetable"
-   2. User can see navigation with links "Bus Lines" and "Stops" ("Stops" is active link)
-   3. User can see the search bar
-      1. If search bar is empty all stops should be visible
-      2. Once any search term is entered, "Bus Stops" list should be filtered (https://www.figma.com/file/Dj4FdiwG7uYUqV8ml7xKSL/Interview-Task---Frontend-Dev?type=design&node-id=701-40971&mode=design&t=TTiUnvJpn1Nl7Rgh-4)
-   4. User can see listed "Bus Stops". The "Bus Stops" should be sorted in the ascending order
-   5. "Bus Stops" should be sortable by clicking on the icon near the title
+## Assignment Overview
+The task is to build a simple board for displaying bus stops according to provided User Stories and corresponding designs. The `docs` directory contains the `openapi` specification for the API responses. You can interact with the API and verify how it is implemented. The implementation should be as close to the design as possible, and TypeScript must be used. Loading and error states should be handled, and unit tests should be included. No additional libraries should be used.
